@@ -18,7 +18,6 @@ public record RegisterAppointmentDto(
     @NotNull(message = "Appointment time cannot be null")
     TimeEnum appointmentTime,
 
-    @NotNull(message = "Appointment date cannot be null")
     LocalDate appointmentDate,    
 
     @NotBlank(message = "Description cannot be blank")

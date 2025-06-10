@@ -31,7 +31,19 @@ public class AppointmentService {
             throw new IllegalArgumentException("Patient not found");
         }
 
-        LocalDate date = data.appointmentDate();
+        LocalDate date = data.appointmentDate() != null ? data.appointmentDate() : LocalDate.now();
+
+        // ... validações ...
+
+        Optional<Appointment> appointment = appointmentRepository.findByAppointmentDateAndAppointmentTimeAndDoctorSpecialty(
+            date,
+            data.appointmentTime(),
+            data.doctorSpecialty()
+        );
+
+        if (appointment.isPresent()) {
+            throw new IllegalArgumentException("Appointment already exists for this date and time");
+        }
 
         if (date.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Appointment date cannot be in the past");
@@ -47,16 +59,6 @@ public class AppointmentService {
         
         if (date.getDayOfWeek().getValue() == 6 || date.getDayOfWeek().getValue() == 7) {
             throw new IllegalArgumentException("Appointment cannot be on a Saturday or Sunday");
-        }
-        // Check if an appointment already exists for the given date, time, and doctor's specialty
-        Optional<Appointment> appointment = appointmentRepository.findByAppointmentDateAndAppointmentTimeAndDoctorSpecialty(
-            data.appointmentDate(), 
-            data.appointmentTime(), 
-            data.doctorSpecialty()
-        );
-
-        if (appointment.isPresent()) {
-            throw new IllegalArgumentException("Appointment already exists for this date and time");
         }
         
         Appointment newAppointment = new Appointment();
