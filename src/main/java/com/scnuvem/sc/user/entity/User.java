@@ -3,6 +3,7 @@ package com.scnuvem.sc.user.entity;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.scnuvem.sc.auth.dtos.request.RegisterUserDto;
 import com.scnuvem.sc.user.enums.Role;
 
 import jakarta.persistence.Column;
@@ -95,6 +96,14 @@ public class User {
 
     public boolean isEnable(){
         return this.isEnabled;
+    }
+
+    public User(RegisterUserDto data, String encryptedPassword, Role role) {
+        this.name = data.name();
+        this.username = data.username();
+        this.email = data.email();
+        this.password = encryptedPassword;
+        this.role = role;
     }
 
 }
