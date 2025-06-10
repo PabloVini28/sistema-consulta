@@ -49,8 +49,10 @@ public class AppointmentService {
             throw new IllegalArgumentException("Appointment cannot be on a Saturday or Sunday");
         }
         // Check if an appointment already exists for the given date, time, and doctor's specialty
-        Optional<Appointment> appointment = appointmentRepository.findByDateAndTimeAndDoctorSpecialty(
-            date, data.appointmentTime(), data.doctorSpecialty()
+        Optional<Appointment> appointment = appointmentRepository.findByAppointmentDateAndAppointmentTimeAndDoctorSpecialty(
+            data.appointmentDate(), 
+            data.appointmentTime(), 
+            data.doctorSpecialty()
         );
 
         if (appointment.isPresent()) {
