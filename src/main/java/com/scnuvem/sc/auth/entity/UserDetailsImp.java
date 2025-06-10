@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.scnuvem.sc.user.entity.User;
 
+
 public class UserDetailsImp implements UserDetails{
     
     private final User user;
@@ -24,7 +25,7 @@ public class UserDetailsImp implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRole() != null
                 ? List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority(user.getRole().toString()))
-                : List.of();
+                : List.of(); // Retorna uma lista vazia se o usuário não tiver role
     }
 
     @Override
