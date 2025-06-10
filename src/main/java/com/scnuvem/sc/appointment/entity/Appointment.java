@@ -45,7 +45,7 @@ public class Appointment {
     @Column(name="appointmentDate", nullable=false)
     private LocalDate appointmentDate;
 
-    @Column(name="appointmentDate", nullable=false)
+    @Column(name="appointmentTime", nullable=false)
     private TimeEnum appointmentTime;
 
     @Column(nullable=false) @Size(max=255)
