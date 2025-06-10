@@ -33,8 +33,6 @@ public class AppointmentService {
 
         LocalDate date = data.appointmentDate() != null ? data.appointmentDate() : LocalDate.now();
 
-        // ... validações ...
-
         Optional<Appointment> appointment = appointmentRepository.findByAppointmentDateAndAppointmentTimeAndDoctorSpecialty(
             date,
             data.appointmentTime(),
