@@ -12,5 +12,10 @@ import com.scnuvem.sc.appointment.enums.TimeEnum;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
-    Optional<Appointment> findByDateAndTimeAndDoctorSpecialty(LocalDate Date, TimeEnum time, DoctorSpecialty doctorSpecialty);
+    
+    Optional<Appointment> findByAppointmentDateAndAppointmentTimeAndDoctorSpecialty(
+    LocalDate appointmentDate,
+    TimeEnum appointmentTime,
+    DoctorSpecialty doctorSpecialty
+    );
 }
