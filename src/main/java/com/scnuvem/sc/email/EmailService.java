@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.scnuvem.sc.appointment.entity.Appointment;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
@@ -112,6 +114,27 @@ public class EmailService {
         "</body>" +
         "</html>";
         return htmlContent;
+    }
+
+    public void sendAppointmentConfirmationEmail(Appointment savedAppointment) {
+        String to = savedAppointment.getPatient().getEmail();
+        String subject = "Appointment Confirmation";
+        String body = "<!DOCTYPE html>" +
+                "<html>" +
+                "<head><title>Appointment Confirmation</title></head>" +
+                "<body>" +
+                "<h2>Appointment Confirmation</h2>" +
+                "<p>Hello " + savedAppointment.getPatient().getName() + ",</p>" +
+                "<p>Your appointment has been successfully scheduled.</p>" +
+                "<p><strong>Date:</strong> " + savedAppointment.getAppointmentDate() + "</p>" +
+                "<p><strong>Time:</strong> " + savedAppointment.getAppointmentTime() + "</p>" +
+                "<p><strong>Doctor Specialty:</strong> " + savedAppointment.getDoctorSpecialty() + "</p>" +
+                "<p><strong>Description:</strong> " + savedAppointment.getDescription() + "</p>" +
+                "<hr>" +
+                "<footer><p>This is an automated email, please do not reply.</p></footer>" +
+                "</body>" +
+                "</html>";
+        sendEmail(to, subject, body);
     }
 
 }
