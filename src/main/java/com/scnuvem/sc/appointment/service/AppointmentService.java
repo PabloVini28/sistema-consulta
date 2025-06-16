@@ -12,6 +12,7 @@ import com.scnuvem.sc.appointment.dtos.request.RegisterAppointmentDto;
 import com.scnuvem.sc.appointment.dtos.response.AppointmentResponseDto;
 import com.scnuvem.sc.appointment.entity.Appointment;
 import com.scnuvem.sc.appointment.repository.AppointmentRepository;
+import com.scnuvem.sc.email.EmailService;
 import com.scnuvem.sc.user.entity.User;
 import com.scnuvem.sc.user.repository.UserRepository;
 
@@ -20,6 +21,9 @@ public class AppointmentService {
     
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserRepository userRepository;
@@ -67,6 +71,7 @@ public class AppointmentService {
         newAppointment.setDescription(data.description());
 
         Appointment savedAppointment = appointmentRepository.save(newAppointment);
+        emailService.sendAppointmentConfirmationEmail(savedAppointment);
         return new AppointmentResponseDto(savedAppointment);
     }
 
