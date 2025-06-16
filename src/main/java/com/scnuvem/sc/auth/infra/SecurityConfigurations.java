@@ -36,6 +36,10 @@ public class SecurityConfigurations {
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+        .requestMatchers(HttpMethod.GET, "api/appointments/**").hasRole("RECEPCIONISTA")
+        .requestMatchers(HttpMethod.DELETE, "api/appointments/**").hasRole("RECEPCIONISTA")
+        .requestMatchers(HttpMethod.GET, "/api/users/**").hasRole("RECEPCIONISTA")
+        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("RECEPCIONISTA")
 
         .requestMatchers("/error").permitAll()
         .anyRequest().authenticated()
