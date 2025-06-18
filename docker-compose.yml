@@ -1,0 +1,30 @@
+services:
+  db:
+    image: postgres:16
+    container_name: sc-db
+    environment:
+      POSTGRES_DB: hospital_nuvem
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - sc-network
+
+  app:
+    build: .
+    container_name: sc-app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hospital_nuvem
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8080:8080"
+    networks:
+      - sc-network
+
+networks:
+  sc-network:
