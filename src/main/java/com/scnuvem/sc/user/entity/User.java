@@ -52,8 +52,10 @@ public class User {
     @Column(nullable=false)
     @JsonIgnore
     @Size(min=8, message="Password must be at least 8 characters long")
-    @Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", 
-             message="Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character")
+    @Pattern(
+    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+    message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    )
     @Size(max=255, message="Password cannot exceed 255 characters")
     private String password;
 
